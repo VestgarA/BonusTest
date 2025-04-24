@@ -36,13 +36,13 @@ public class BonusServiceTest {
     }
 
     @Test
-    void negativPriceForRegistered() {
+    void negativPriceForAnRegistered() {
         BonusService service = new BonusService();
 
         // подготавливаем данные:
-        long amount = 0;
-        boolean registered = true;
-        long expected = 0;
+        long amount = 1000;
+        boolean registered = false;
+        long expected = 10;
 
         // вызываем целевой метод:
         long actual = service.calculate(amount, registered);
@@ -52,13 +52,13 @@ public class BonusServiceTest {
     }
 
     @Test
-    void negativPriceForAnRegistered() {
+    void negativPriceForanRegistered() {
         BonusService service = new BonusService();
 
         // подготавливаем данные:
-        long amount = 0;
+        long amount = 1_000_000;
         boolean registered = false;
-        long expected = 0;
+        long expected = 500;
 
         // вызываем целевой метод:
         long actual = service.calculate(amount, registered);
@@ -67,4 +67,20 @@ public class BonusServiceTest {
         Assertions.assertEquals(expected, actual);
     }
 
+    @Test
+    void negativPriceForNoRegistered() {
+        BonusService service = new BonusService();
+
+        // подготавливаем данные:
+        long amount = 30000;
+        boolean registered = false;
+        long expected = 300;
+
+        // вызываем целевой метод:
+        long actual = service.calculate(amount, registered);
+
+        // производим проверку (сравниваем ожидаемый и фактический):
+        Assertions.assertEquals(expected, actual);
+
+    }
 }
